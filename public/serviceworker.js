@@ -9,8 +9,9 @@ const FILES_TO_CACHE = [
   "/icons/icon-512x512.png",
 ];
 
-// install
-self.addEventListener("install", async (e) => {
+// install action 
+
+self.addEventListener("install", async (event) => {
   const budgetData = await caches.open(BUDGET_DATA);
   await budgetData.add("/api/transaction");
 
@@ -19,3 +20,31 @@ self.addEventListener("install", async (e) => {
 
   self.skipWaiting();
 });
+
+//activate action
+self.addEventListener("activate", event=> {
+
+event.waitUntil(
+    caches.keys().then(keyList=>{
+        return Promise.all(
+            keyList.map(key=>{
+                if(key !== STATIC_BUDGET && key !==BUDGET_DATA) {
+                    console.log("remove old data", key);
+                    return caches.delete(key);
+                };
+            })
+        );
+    })
+);
+
+self.ClientRectList.claim();
+
+});
+
+
+
+
+//fetch action
+
+
+

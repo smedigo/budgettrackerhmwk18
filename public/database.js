@@ -31,9 +31,9 @@ request.onupgradeneeded = (event) => {
   // check DB when back online
 
   const checkDatabase = () => {
-    // open a transaction on your pending db
+    // open a transaction on the pending db
     const transaction = db.transaction(["pending"], "readwrite");
-    // access your pending object store
+    // access the store
     const Store = transaction.objectStore("pending");
     // get records from store
     const getAll = pendingStore.getAll();
