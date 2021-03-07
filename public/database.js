@@ -1,6 +1,8 @@
+const indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitiIndexedDB || window.msIndexedDB || window.shimIndexedDB;
+
 let db;
 
-const request = indexDB.open("budget", 1);
+const request = indexedDB.open("budget", 1);
 
 request.onupgradeneeded = (event) => {
     const db = event.target.result;
