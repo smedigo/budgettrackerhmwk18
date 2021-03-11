@@ -14,10 +14,10 @@ const FILES_TO_CACHE = [
 
 self.addEventListener("install", function(event) {
 
-  event.waitUntil
+  event.waitUntil(
   caches.open(STATIC_BUDGET).then(function(cache){
     return cache.addAll(FILES_TO_CACHE);
-  })
+  }))
   // const budgetData = await caches.open(BUDGET_DATA);
   // await budgetData.add("/api/transaction");
   // const staticBudget = await caches.open(STATIC_BUDGET);
@@ -41,6 +41,7 @@ self.addEventListener("fetch", function(event) {
     );
     return;
   }
+
 event.respondWith(
   fetch(event.request).catch(function(){
     return caches.match(event.request).then(function(response) {
